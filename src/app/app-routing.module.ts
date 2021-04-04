@@ -4,10 +4,10 @@ import{ DeliveryComponent } from './components/delivery/delivery.component';
 import {DineoutComponent} from './components/dineout/dineout.component';
 import {NightlifeComponent} from './components/nightlife/nightlife.component'
 const routes: Routes = [
-  {
-    path:'',
-    component:DeliveryComponent
-  },
+  // {
+  //   path:'',
+  //   component:DeliveryComponent
+  // },
   {
     path:'delivery',
     component: DeliveryComponent
@@ -19,7 +19,20 @@ const routes: Routes = [
   {
     path:'nightlife',
     component: NightlifeComponent
-  }
+  },
+  {
+    path: '',
+    redirectTo: 'delivery',
+    pathMatch: 'full',
+   
+},
+{
+  path: '**',
+  redirectTo: 'delivery',
+  pathMatch: 'full',
+ 
+}
+
 
 ];
 

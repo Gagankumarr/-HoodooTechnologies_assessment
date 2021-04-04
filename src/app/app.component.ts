@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { GeoServiceService } from './services/geo-service.service';
 
 import { ApiService, Maps } from './services/api.service';
+import { GetCooksService } from './services/get-cooks.service';
 
 @Component({
   selector: 'app-root',
@@ -17,12 +18,20 @@ export class AppComponent implements OnInit {
   setClasses = new Set();
   user_location: Observable<any>;
   classToggled = false;
+  latitude  = '';
+  longitude ='';
+  cooksList = [];
+  locationHasCooks : boolean;
   
   @ViewChild("location")
   public searchElementRef: ElementRef;
 
  
-  constructor(private geoService: GeoServiceService , apiService: ApiService, private ngZone: NgZone) { 
+  constructor(private geoService: GeoServiceService , 
+    apiService: ApiService, 
+    private ngZone: NgZone,
+    private getCooksService:GetCooksService,
+    ) { 
     apiService.api.then(maps => {
       this.initAutocomplete(maps);
     });
@@ -30,10 +39,16 @@ export class AppComponent implements OnInit {
   
   initAutocomplete(maps: Maps) {
     let autocomplete = new maps.places.Autocomplete(this.searchElementRef.nativeElement);
+    this.search.patchValue({location:'Bangalore, Karnataka, Inde'})
     autocomplete.addListener("place_changed", () => {
       this.ngZone.run(() => {
+        const locationRef = autocomplete.getPlace().geometry.location;
+        console.log(autocomplete.getPlace(),maps)
+        const location = {latitude:locationRef.lat(),longitude:locationRef.lng()}
+        this.getCooks(location);
       });
     });
+    console.log(autocomplete)
   }
 
   ngOnInit(){
@@ -41,16 +56,14 @@ export class AppComponent implements OnInit {
     this.search= new FormGroup({
       'location': new FormControl(null,[Validators.required])
     });
-    
+    const location = {latitude:12.970786,longitude: 77.593466}
+    this.getCooks(location)
   }
   get f(){
     return this.search.controls;
   }
 
-  updateLocation(input){
-    console.log(input);
-    
-  }
+
   onSubmit(){
     this.submitted= true;
     if(this.search.invalid){
@@ -60,19 +73,30 @@ export class AppComponent implements OnInit {
       console.log(this.search.value)
     }
   }
-
-  showGpsBtn() {
-    
+ 
+  showGpsBtn() { 
     this.classToggled = !this.classToggled; 
-    
   }
 
   gpsOn(){
     this.user_location = this.geoService.geoLocation$
     this.geoService.getUserLocation();
-    console.log(this.user_location);
-    
-    
+   this.geoService.geoLocation$.subscribe(res=>{
+    const location = {latitude:res['coords']['latitude'],longitude:res['coords']['longitude']};
+    this.getCooks(location);
+
+    });
+  }
+  getCooks(location){
+    this.getCooksService.filterCooks({location}).subscribe(res=>{
+      this.cooksList = res?.data?.response;
+      if(this.cooksList.length === 0){
+        this.locationHasCooks = false
+      }
+      else{
+        this.locationHasCooks = true;
+      }
+    })
   }
  
 

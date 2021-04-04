@@ -1,14 +1,14 @@
 <div class="main-div">
   <div class="row header">
     <div class="col-md-2 ">
-      <h1>zomato</h1>
+      <img src="../assets/zomato.webp">
     </div>
     <div class="col-md-6">
       <form [formGroup]="search" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <i class="fa fa-map-marker location-icon" aria-hidden="true"></i>
-          <input type="text" formControlName="location" id="location" #location (keyUp)="updateLocation(location.value)" class="form-group"
-          class="form-text" [ngClass]="{'is-invalid': submitted && f.location.errors}"(click)="showGpsBtn()"
+          <input type="text" formControlName="location" id="location" #location  class="form-group"
+          class="form-text" [ngClass]="{'is-invalid': submitted && f.location.errors}" (click)="showGpsBtn()"
           placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off">
           <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
             <div *ngIf="f.location.errors.required">
@@ -29,15 +29,96 @@
     </div>
   </div>
 
+  <div *ngIf="locationHasCooks">
+    <div class="cook_card" *ngFor="let cook of cooksList">
+       <div class="row m-0">
+         <div class="col-md-3">
+           <div class="profile_img">
+             <img src="../assets/profile1.jpg">
+           </div>
+         </div>
+         <div class="col-md-9">
+           <div class="about_cook">
+             <div class="card-body">
+               <div class="row">
+                 <div class="col-md-7">
+                   <h1>{{cook.firstName + ' ' + cook.lastName}}</h1>
+                 </div>
+                 <div class="col-md-5">
+                   <h5>{{cook.experience}}+ Years of Experience</h5>
+                 </div>
+               </div>
+               <div class="rating">
+                 <span><i class="fa fa-star" aria-hidden="true"></i>(21 Reviews)</span>
+               </div>
+               <div class="info">
+                 <div class="row mt-4">
+                   <div class="col-md-3">
+                     <div class="cuisine_card inner-cards">
+                         <span><img src="../assets/cuisine.svg">Primary Cuisine</span>
+                         <p>{{cook.cuisines[0]}}</p>
+                     </div>
+                   </div>
+                   <div class="col-md-3">
+                     <div class="factor_card inner-cards">
+                         <span><img src="../assets/chicken-leg.svg">X-Factor</span>
+                         <p>{{cook.xFactor}}</p>
+                     </div>
+                   </div> 
+     
+                   <div class="col-md-3">
+                     <div class="cooks_card inner-cards">
+                         <span><img src="../assets/cooks.svg">Cooks</span>
+                         <p>{{cook.nonVeg ? 'Non Veg' : 'Veg'}}</p>
+                     </div>
+                   </div>
+                   <div class="col-md-3">
+                     <div class="from_card inner-cards">
+                         <span><img src="../assets/location.svg">From</span>
+                         <p>{{cook.nativeState}}</p>
+                     </div>
+                   </div>
+     
+                 </div>
+                 
+               </div>
+               <div class="price">
+                 <div class="row mt-4">
+                   <div class="col-md-6">
+                     <h3> ₹ {{cook?.pricePerVisits[0]?.visitPrice}}</h3>
+                     <p>Based on your selection</p>
+                   </div>
+                   <div class="col-md-6 btn-section">
+                     <button class="btn view--btn">View Details</button>
+                     <button class="btn submit-btn">Book Now</button>
+                   </div>
+                 </div>
+                 
+               </div>
+           </div>
+         </div>
+        
+       </div>
+      
+     </div>
+   
+   
+   </div>
+   </div>
+   <div *ngIf="!locationHasCooks" class="data_not_found"><h2>No Cooks avaliable for this filter</h2></div>
+    
+
+
+
   <div class="option-dine">
     <ul>
-      <li routerLink="delivery">
+      <li routerLink="delivery" routerLinkActive='active' >
         <img src="../assets/delivery.webp"><h4>Delivery</h4>
       </li>
-      <li routerLink="dineout">
+      <li routerLink="dineout" routerLinkActive='active'>
         <img src="../assets/dinein.webp"><h4>Dining Out</h4> 
       </li>
-      <li routerLink="nightlife">
+      <li routerLink="nightlife" routerLinkActive='active'>
       <img src="../assets/nightlife.webp">
       <h4>
         Nightlife
