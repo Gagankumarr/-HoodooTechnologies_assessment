@@ -1,0 +1,144 @@
+$font:30px;
+.main-div{
+    padding: 20px 100px;
+}
+
+.header{
+    text-align: center;
+        h1
+        {
+            font-size: $font;
+            font-weight: 800;
+            font-family: sans-serif;
+        }
+}
+
+.form-text{
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: rgb(28 28 28 / 8%) 0px 2px 8px;
+    border: 1px solid rgb(232, 232, 232);
+    height: 42px;
+    padding-left: 40px;
+    
+}
+.form-text:focus{
+    outline: none;
+}
+.form-group{
+    display: flex;
+}
+
+.location-icon{
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    font-size: 24px;
+    transform: translate(10px, 10px);
+    padding-right: 20px;
+    color: rgb(245, 112, 130);
+}
+.login-signup{
+    display: flex;
+    text-align: center;
+    padding: 10px;
+    justify-content: space-around;
+    color: rgb(105, 105, 105);
+}
+
+.option-dine{
+    padding: 50px 0 0 0;
+    border-bottom: 1px solid #000;
+    ul{
+        display: flex;
+        padding-right: 30px;
+        list-style:none;
+        li{
+            display: flex;
+            padding-right: 30px;
+            cursor: pointer;
+            img{
+                height: 30px;
+                width: auto;
+                padding-right: 10px;
+            }
+        }
+    }
+}
+.option-dine li:focus{
+    outline: none;
+}
+.login-signup {
+    h5{
+        cursor: pointer;
+    }
+
+}
+.card-location{
+    display: none;
+    .gps_btn{
+        width: 100%;
+        background: #fff;
+        box-shadow: rgb(28 28 28 / 8%) 0px 2px 8px;
+        border: 1px solid #e8e8e8;
+        height: 50px;
+        border-radius: 10px;
+        cursor: pointer;
+        color:red;
+        text-align: left;
+        padding: 0 0 0 30px;
+        
+        p{
+            font-size: 12px;
+            color: #000;
+        }
+    }
+}
+.toggled {
+    display: block;
+  }
+.gps_btn:focus{
+    outline: none;
+}
+
+.login-signup{
+    h5:focus{
+        outline: none;
+    }
+}
+
+// responsive css
+
+@media (min-width:320px) and (max-width:992px){
+    .main-div{
+        padding: 20px;
+        .header {
+            h1{
+                float: right;
+            }
+        }
+    }
+    .login-signup{
+        display: none;
+    }
+    .option-dine{
+        ul{
+            display: block;
+            padding: 0 20px;
+        }
+    }
+
+}
+@media (min-width:768px) and (max-width:992px){
+    .option-dine{
+        ul{
+            display: flex;
+        }
+    }
+}
+
+@media (min-width:768px) and (max-width:992px){
+    .header{
+        padding: 0 30px;
+    }
+}

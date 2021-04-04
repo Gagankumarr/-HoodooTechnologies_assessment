@@ -1,0 +1,40 @@
+.main-div{
+    padding: 20px 125px;
+    h2{
+        padding:0 0 20px 0;
+    }
+}
+.card{
+    
+    width: 100% !important;
+    border: none;
+        .card-img-top{
+            max-height: 185px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+}
+
+
+// responsive css
+@media (min-width:320px) and (max-width:992px){
+    .main-div{
+        padding: 20px;
+    }
+    
+}
+@media (min-width:768px) and (max-width:992px){
+    .card{
+        .card-img-top{
+            max-height: 120px;
+        }
+    }
+}
+
+@media (min-width:993px) and (max-width:1250px){
+    .card{
+        .card-img-top{
+            max-height: 130px;
+        }
+    }
+}
